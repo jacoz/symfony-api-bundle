@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="jsab.controller.abstract_api_controller"
+                 class="Jacoz\Symfony\ApiBundle\Controller\AbstractApiController"
+                 abstract="true">
+            <call method="setTokenStorage">
+                <argument type="service" id="security.token_storage" />
+            </call>
+        </service>
+
+        <service id="jsab.controller.translations_controller"
+                 class="Jacoz\Symfony\ApiBundle\Controller\TranslationsController">
+            <argument type="service" id="jsab.provider.translations_provider" />
+        </service>
+    </services>
+</container>

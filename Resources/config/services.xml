@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="jsab.event_listener.api_response_listener"
+                 class="Jacoz\Symfony\ApiBundle\EventListener\ApiResponseListener">
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="200" />
+            <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" />
+        </service>
+
+        <service id="guzzle.client" class="GuzzleHttp\Client" />
+
+        <service id="jsab.service.search_querybuilder_helper" class="Jacoz\Symfony\ApiBundle\Services\Search\SearchQueryBuilderHelper" />
+    </services>
+</container>

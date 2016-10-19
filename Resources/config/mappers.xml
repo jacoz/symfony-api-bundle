@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="jsab.mapper.constraint_violation_mapper" class="Jacoz\Symfony\ApiBundle\Mapper\ConstraintViolationMapper" />
+
+        <service id="jsab.mapper.entity_mapper" class="Jacoz\Symfony\ApiBundle\Mapper\EntityMapper" />
+
+        <service id="jsab.mapper.search_mapper" class="Jacoz\Symfony\ApiBundle\Mapper\SearchMapper" />
+    </services>
+</container>
