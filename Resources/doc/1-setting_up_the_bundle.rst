@@ -8,7 +8,7 @@ Open a command console, enter your project directory and execute the following c
 
 .. code-block:: bash
 
-    $ composer require jacoz/symfony-api-bundle:dev-master
+    $ composer require jacoz/symfony-api-bundle
 
 B) Enable the Bundle
 --------------------
