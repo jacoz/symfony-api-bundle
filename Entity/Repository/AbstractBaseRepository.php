@@ -20,7 +20,6 @@ abstract class AbstractBaseRepository extends EntityRepository
     public function destroy($entity)
     {
         $this->getEntityManager()->remove($entity);
-        $this->flush();
     }
 
     /**
@@ -29,5 +28,20 @@ abstract class AbstractBaseRepository extends EntityRepository
     public function flush($entity = null)
     {
         $this->getEntityManager()->flush($entity);
+    }
+
+    public function beginTransaction()
+    {
+        $this->getEntityManager()->beginTransaction();
+    }
+
+    public function commit()
+    {
+        $this->getEntityManager()->commit();
+    }
+
+    public function rollback()
+    {
+        $this->getEntityManager()->rollback();
     }
 }
