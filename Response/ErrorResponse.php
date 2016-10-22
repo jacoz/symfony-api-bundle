@@ -28,7 +28,6 @@ class ErrorResponse extends AbstractResponse
             ],
         ];
 
-
         if ($exception instanceof ApiException && !empty($exception->getErrors())) {
             $data['error']['errors'] = $exception->getErrors();
         }

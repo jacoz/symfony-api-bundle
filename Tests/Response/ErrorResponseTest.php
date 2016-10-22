@@ -67,10 +67,6 @@ class ErrorResponseTest extends TestCase
     ) {
         $data = $response->getData();
 
-        $this->assertArrayHasKey('status_code', $response->getResponseObject());
-        $this->assertArrayHasKey('data', $response->getResponseObject());
-        $this->assertArrayHasKey('meta', $response->getResponseObject());
-
         $this->assertEquals($statusCode, $response->getStatusCode());
 
         $this->assertArrayHasKey('error', $data);
