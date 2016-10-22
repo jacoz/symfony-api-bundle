@@ -4,6 +4,7 @@ namespace Jacoz\Symfony\ApiBundle\Tests\EventListener;
 
 use Jacoz\Symfony\ApiBundle\EventListener\ApiResponseListener;
 use Jacoz\Symfony\ApiBundle\Response\ApiResponse;
+use Jacoz\Symfony\ApiBundle\Serializer\Interfaces\ApiResponseSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -25,7 +26,7 @@ class ApiResponseListenerTest extends TestCase
             new \Exception()
         );
 
-        $listener = new ApiResponseListener();
+        $listener = new ApiResponseListener($this->getApiResponseSerializerMock(['error' => 'foo']));
         $listener->onKernelException($event);
 
         $this->assertInstanceOf(JsonResponse::class, $event->getResponse());
@@ -73,10 +74,29 @@ class ApiResponseListenerTest extends TestCase
             $response
         );
 
-        $listener = new ApiResponseListener();
+        $listener = new ApiResponseListener($this->getApiResponseSerializerMock('foo'));
         $listener->onKernelView($event);
 
         return $event;
+    }
+
+    /**
+     * @param mixed $object
+     * @return \PHPUnit_Framework_MockObject_MockObject|ApiResponseSerializerInterface
+     */
+    private function getApiResponseSerializerMock($object)
+    {
+        $apiResponseSerializer = $this
+            ->getMockBuilder(ApiResponseSerializerInterface::class)
+            ->setMethods(['serialize'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $apiResponseSerializer->expects($this->any())
+            ->method('serialize')
+            ->will($this->returnValue($object));
+
+        return $apiResponseSerializer;
     }
 }
 

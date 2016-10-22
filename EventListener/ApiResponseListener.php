@@ -2,8 +2,10 @@
 
 namespace Jacoz\Symfony\ApiBundle\EventListener;
 
+use Jacoz\Symfony\ApiBundle\Model\ApiResponseWrapper;
 use Jacoz\Symfony\ApiBundle\Response\Interfaces\ApiResponseInterface;
 use Jacoz\Symfony\ApiBundle\Response\ErrorResponse;
+use Jacoz\Symfony\ApiBundle\Serializer\Interfaces\ApiResponseSerializerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -12,6 +14,30 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ApiResponseListener implements EventSubscriberInterface
 {
+    /**
+     * @var ApiResponseSerializerInterface
+     */
+    private $apiResponseSerializer;
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::EXCEPTION => ['onKernelException', 200],
+            KernelEvents::VIEW => ['onKernelView', 0]
+        ];
+    }
+
+    /**
+     * @param ApiResponseSerializerInterface $apiResponseSerializer
+     */
+    public function __construct(ApiResponseSerializerInterface $apiResponseSerializer)
+    {
+        $this->apiResponseSerializer = $apiResponseSerializer;
+    }
+
     /**
      * @todo set json response only if request is in json
      * @param GetResponseForExceptionEvent $event
@@ -43,23 +69,26 @@ class ApiResponseListener implements EventSubscriberInterface
      */
     private function createResponse(ApiResponseInterface $controllerResult)
     {
+        $data = $this->apiResponseSerializer->serialize(
+            $controllerResult->getData(),
+            'json',
+            [
+                'groups' => $controllerResult->getSerializationGroups(),
+            ]
+        );
+
+        $apiResponseWrapper = new ApiResponseWrapper(
+            $data,
+            $controllerResult->getStatusCode(),
+            $controllerResult->getMeta()
+        );
+
         $response = new JsonResponse(
-            $controllerResult->getResponseObject(),
+            $apiResponseWrapper->getResponseObject(),
             $controllerResult->getStatusCode(),
             $controllerResult->getHeaders()
         );
 
         return $response;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::EXCEPTION => ['onKernelException', 200],
-            KernelEvents::VIEW => ['onKernelView', 0]
-        ];
     }
 }

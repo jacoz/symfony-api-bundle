@@ -24,6 +24,7 @@ class JacozSymfonyApiExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controllers.xml');
+        $loader->load('events.xml');
         $loader->load('mappers.xml');
         $loader->load('param_converters.xml');
         $loader->load('providers.xml');

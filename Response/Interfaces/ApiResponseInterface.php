@@ -5,9 +5,19 @@ namespace Jacoz\Symfony\ApiBundle\Response\Interfaces;
 interface ApiResponseInterface
 {
     /**
+     * @param mixed $data
+     */
+    public function setData($data);
+
+    /**
      * @return mixed
      */
     public function getData();
+
+    /**
+     * @return array
+     */
+    public function getSerializationGroups();
 
     /**
      * @return integer
@@ -23,9 +33,4 @@ interface ApiResponseInterface
      * @return array
      */
     public function getMeta();
-
-    /**
-     * @return array
-     */
-    public function getResponseObject();
 }

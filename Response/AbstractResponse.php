@@ -13,6 +13,11 @@ abstract class AbstractResponse implements ApiResponseInterface
     private $data;
 
     /**
+     * @var array
+     */
+    private $serializationGroups = [];
+
+    /**
      * @var int
      */
     private $statusCode;
@@ -38,7 +43,7 @@ abstract class AbstractResponse implements ApiResponseInterface
     }
 
     /**
-     * @param $data
+     * {@inheritdoc}
      */
     public function setData($data)
     {
@@ -51,6 +56,22 @@ abstract class AbstractResponse implements ApiResponseInterface
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSerializationGroups()
+    {
+        return $this->serializationGroups;
+    }
+
+    /**
+     * @param array $serializationGroups
+     */
+    public function setSerializationGroups(array $serializationGroups)
+    {
+        $this->serializationGroups = $serializationGroups;
     }
 
     /**
@@ -99,17 +120,5 @@ abstract class AbstractResponse implements ApiResponseInterface
     public function setMeta($meta)
     {
         $this->meta = $meta;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseObject()
-    {
-        return [
-            'status_code' => $this->getStatusCode(),
-            'data' => $this->getData(),
-            'meta' => $this->getMeta(),
-        ];
     }
 }
