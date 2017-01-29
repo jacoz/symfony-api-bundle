@@ -55,6 +55,7 @@ class ErrorResponseTest extends TestCase
      * @param int $statusCode
      * @param string $errorMessage
      * @param string $exceptionClass
+     * @param array $errorFields
      *
      * @dataProvider responsesProvider
      */

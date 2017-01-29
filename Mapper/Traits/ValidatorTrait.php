@@ -21,7 +21,7 @@ trait ValidatorTrait
     }
 
     /**
-     * @param object $object
+     * @param mixed $object
      * @param array $groups
      * @throws ValidationException
      */
