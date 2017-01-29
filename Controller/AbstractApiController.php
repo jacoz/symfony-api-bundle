@@ -33,10 +33,17 @@ abstract class AbstractApiController
     }
 
     /**
-     * @return UserInterface
+     * @return UserInterface|null
      */
     protected function getCurrentUser()
     {
+        if (   !$this->tokenStorage
+            || !$this->tokenStorage->getToken()
+            || !$this->tokenStorage->getToken()->getUser() instanceof UserInterface
+        ) {
+            return;
+        }
+
         return $this->tokenStorage->getToken()->getUser();
     }
 }
