@@ -41,4 +41,9 @@ interface SearchInterface
      * @return string
      */
     public function getOrderBy();
+
+    /**
+     * @return bool
+     */
+    public function hasFilters();
 }

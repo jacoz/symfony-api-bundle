@@ -110,4 +110,12 @@ class Search implements SearchInterface
     {
         $this->orderBy = $orderBy;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasFilters()
+    {
+        return !empty($this->query);
+    }
 }
