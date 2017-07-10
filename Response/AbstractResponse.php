@@ -125,7 +125,7 @@ abstract class AbstractResponse implements ApiResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function useApiWrapperDefaultObjectTemplate()
+    public function useApiResponseWrapperDefaultObjectTemplate()
     {
         return true;
     }

@@ -37,5 +37,5 @@ interface ApiResponseInterface
     /**
      * @return bool
      */
-    public function useApiWrapperDefaultObjectTemplate();
+    public function useApiResponseWrapperDefaultObjectTemplate();
 }

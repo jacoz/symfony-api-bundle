@@ -77,7 +77,7 @@ class ApiResponseListener implements EventSubscriberInterface
             ]
         );
 
-        if ($controllerResult->useApiWrapperDefaultObjectTemplate()) {
+        if ($controllerResult->useApiResponseWrapperDefaultObjectTemplate()) {
             $apiResponseWrapper = new ApiResponseWrapper(
                 $data,
                 $controllerResult->getStatusCode(),
