@@ -121,4 +121,12 @@ abstract class AbstractResponse implements ApiResponseInterface
     {
         $this->meta = $meta;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function useApiWrapperDefaultObjectTemplate()
+    {
+        return true;
+    }
 }

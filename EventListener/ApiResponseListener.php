@@ -77,14 +77,20 @@ class ApiResponseListener implements EventSubscriberInterface
             ]
         );
 
-        $apiResponseWrapper = new ApiResponseWrapper(
-            $data,
-            $controllerResult->getStatusCode(),
-            $controllerResult->getMeta()
-        );
+        if ($controllerResult->useApiWrapperDefaultObjectTemplate()) {
+            $apiResponseWrapper = new ApiResponseWrapper(
+                $data,
+                $controllerResult->getStatusCode(),
+                $controllerResult->getMeta()
+            );
+
+            $responseObject = $apiResponseWrapper->getResponseObject();
+        } else {
+            $responseObject = $data;
+        }
 
         $response = new JsonResponse(
-            $apiResponseWrapper->getResponseObject(),
+            $responseObject,
             $controllerResult->getStatusCode(),
             $controllerResult->getHeaders()
         );

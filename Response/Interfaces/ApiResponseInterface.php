@@ -33,4 +33,9 @@ interface ApiResponseInterface
      * @return array
      */
     public function getMeta();
+
+    /**
+     * @return bool
+     */
+    public function useApiWrapperDefaultObjectTemplate();
 }
